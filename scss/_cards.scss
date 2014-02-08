@@ -1,0 +1,88 @@
+﻿// help from http://blogs.sitepointstatic.com/examples/tech/css3-transformations/backface2.html
+
+// styling for all three cards
+.card {
+	position:relative;
+	height:150px;
+	width:150px;
+	display:inline-block;
+}
+
+// stylings for the front and back of cards
+.card div {
+	position:absolute;
+	-webkit-transition: all 3s ease;
+	transition: all 3s ease;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	width:100px;
+	height:100px;
+	border:1px solid #000;
+	border-radius: 5px;
+	@include shadows(0px 0px 10px 10px #000);
+}
+
+// styling for back card (top)
+.back {
+	-webkit-transform: perspective(800px) rotateY(0deg);
+	transform: perspective(800px) rotateY(0deg);
+	background: #f2825b; /* Old browsers */
+	background: -moz-linear-gradient(top,  #f2825b 0%, #e55b2b 50%, #f07146 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2825b), color-stop(50%,#e55b2b), color-stop(100%,#f07146)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #f2825b 0%,#e55b2b 50%,#f07146 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #f2825b 0%,#e55b2b 50%,#f07146 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #f2825b 0%,#e55b2b 50%,#f07146 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #f2825b 0%,#e55b2b 50%,#f07146 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2825b', endColorstr='#f07146',GradientType=0 ); /* IE6-9 */
+}
+
+// styling for front of card (shown on hover)
+.front {
+	background: #fff;
+	font-size: 30px;
+	-webkit-transform: perspective(800px) rotateY(-179.9deg);
+	transform: perspective(800px) rotateY(-179.9deg);
+}
+
+// adjustments to card text contained within spans
+.clubs {
+color: green;
+display:block;
+	&:after {
+	content:"\2663";
+	}
+}
+
+.spades {
+color: #000;
+display:block;
+	&:after {
+	content:"\2660";
+	}
+}
+
+.diamonds {
+color: teal;
+display:block;
+	&:after {
+	content:"\2666";
+	}
+}
+
+.bottom {
+	margin-top:25px;
+	text-align:right;
+	@include transforms(rotateX(180deg));
+
+}
+
+
+// first mouseover event to flip back of card
+.card:hover .back {
+	@include transforms(perspective(800px) rotateY(179.9deg));
+}
+
+// mouseover event for front of card
+.card:hover .front {
+	@include transforms(perspective(800px) rotateY(0deg));
+}
